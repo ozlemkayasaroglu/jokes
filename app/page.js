@@ -41,9 +41,9 @@ export default function Home() {
   return (
     <>
       <div className="fixed inset-0 z-10 flex flex-col bg-white rounded-lg shadow-md p-6 items-center">
-        <div className="text-center mt-40">
+        <div className="text-center mt-10">
           <h2 className="text-3xl font-bold leading-tight text-sky-900 font-sans hover:text-sky-700">
-            Elf &quot;s Şaka  App&quot;i
+            Elf &lsquo;s Şaka  App&rsquo;i
           </h2>
         </div>
         <div className="flex flex-col items-center border border-sky-100 border-dashed shadow-2xl p-4 mt-7">
@@ -94,7 +94,7 @@ export default function Home() {
             >
               @gweepCreative
             </Link>
-            &quot;e özel teşekkürler ◕‿◕
+            &lsquo;e özel teşekkürler ◕‿◕
           </span>
           <br></br>
 
