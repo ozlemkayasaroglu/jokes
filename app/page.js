@@ -43,13 +43,13 @@ export default function Home() {
       <div className="fixed inset-0 z-10 flex flex-col bg-white rounded-lg shadow-md p-6 items-center">
         <div className="text-center mt-40">
           <h2 className="text-3xl font-bold leading-tight text-sky-900 font-sans hover:text-sky-700">
-            Elf'in Şaka App'i
+            Elf &quot;s Şaka  App&quot;i
           </h2>
         </div>
         <div className="flex flex-col items-center border border-sky-100 border-dashed shadow-2xl p-4 mt-7">
           <div className="text-center space-y-4 mt-10">
             <p className="text-xl text-sky-700 font-sans hover:text-sky-400">
-              {" "}
+              
               &quot;{currentJoke.text}&quot;
             </p>
           </div>
@@ -87,14 +87,14 @@ export default function Home() {
 
         <div className="text-center mt-10">
           <span className="text-md font-italic leading-tight text-gray-400 ">
-            App'in geliştirilmesinde çok büyük katkıları olan <br></br>
+            App &quot;in geliştirilmesinde çok büyük katkıları olan <br></br>
             <Link
               className="font-bold text-sky-800 opacity-50 hover:opacity-90"
               href="https://x.com/GweepCreative?s=20"
             >
               @gweepCreative
             </Link>
-            'e özel teşekkürler ◕‿◕
+            &quot;e özel teşekkürler ◕‿◕
           </span>
           <br></br>
 
