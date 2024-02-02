@@ -2,6 +2,8 @@
 const nextConfig = {
     images: {
         domains: ['ozlem.kayasaroglu.com'],
+        domains: ['pbs.twimg.com'],
+
     },
   };
   

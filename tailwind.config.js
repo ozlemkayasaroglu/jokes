@@ -7,15 +7,8 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
-    extend: {
-      backgroundColor: {
-        dark: "#1a202c",
-      },
-      textColor: {
-        dark: "#ffffff",
-      },
-    },
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true
   },
-  plugins: [],
 };
