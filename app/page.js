@@ -3,74 +3,69 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-
+import useSWR from "swr";
 
 export default function Home() {
-  const [jokes, setJokes] = useState([]);
   const [currentJokeIndex, setCurrentJokeIndex] = useState(0);
-
   const { theme, setTheme } = useTheme();
+  const { data: jokes, error } = useSWR("/api", async (url) => {
+    const response = await fetch(url);
 
+    if (!response.ok) {
+      throw new Error("Veri alınamadı");
+    }
+    const data = await response.json();
+    return data.data;
+  });
+
+  useEffect(() => {
+    if (error) {
+      console.error("fetch hatası", error);
+    }
+  }, [error]);
+
+  if (!jokes) {
+    return <div>Şakalar yükleniyor...</div>;
+  }
 
   const getNextJoke = () => {
     const randomIndex = Math.floor(Math.random() * jokes.length);
     setCurrentJokeIndex(randomIndex);
-  
   };
-
-
-  useEffect(() => {
-    async function fetchJokes() {
-      try {
-        const response = await fetch("/api");
-        if (!response.ok) {
-          throw new Error("veri alınamadı");
-        }
-        const data = await response.json();
-        setJokes(data.data);
-      } catch (error) {
-        console.error("fetch hatası", error);
-      }
-    }
-    fetchJokes();
-  }, []);
-
-
-  if (jokes.length === 0) {
-    return <div>Şakalar yükleniyor...</div>;
-  }
-   const currentJoke = jokes[currentJokeIndex];
-
+  const currentJoke = jokes[currentJokeIndex];
 
   return (
     <>
-     <div className="inset-0 z-10 flex flex-col bg-white dark:bg-sky-900 rounded-lg shadow-md dark:shadow-md p-6 items-center">
+      <div className="inset-0 z-10 flex flex-col bg-white dark:bg-sky-900 rounded-lg shadow-md dark:shadow-md p-6 items-center">
         <div className="flex items-center justify-between mt-4">
-            <h2 className="text-3xl font-bold leading-tight text-sky-900 font-sans hover:text-sky-700 dark:text-white ">
-              Elf&lsquo;in App&rsquo;i
-            </h2>
-            <label className="switch" style={{ position: "absolute", right: "5px"}}>
-              <input
-                type="checkbox"
-                className="hidden"
-                onChange={() => {
-                  setTheme(theme === "light" ? "dark" : "light");
-                }}
-              />
-              <span className="slider round bg-gray-300 dark:bg-gray-700 ">
-                <span
-                  className={`mr-2 ml-2 mt-1 absolute ${
-                    theme === "light" ? "left-0" : "right-0"
-                  }`}
-                >
-                  {theme === "light" ? "🌙" : "☀️"}
-                </span>
+          <h2 className="text-3xl font-bold leading-tight text-sky-900 font-sans hover:text-sky-700 dark:text-white ">
+            Elf&lsquo;in App&rsquo;i
+          </h2>
+          <label
+            className="switch"
+            style={{ position: "absolute", right: "5px" }}
+          >
+            <input
+              type="checkbox"
+              className="hidden"
+              onChange={() => {
+                setTheme(theme === "light" ? "dark" : "light");
+              }}
+            />
+            <span className="slider round bg-gray-300 dark:bg-gray-700 ">
+              <span
+                className={`mr-2 ml-2 mt-1 absolute ${
+                  theme === "light" ? "left-0" : "right-0"
+                }`}
+              >
+                {theme === "light" ? "🌙" : "☀️"}
               </span>
-            </label>
-        </div> 
+            </span>
+          </label>
+        </div>
 
         {/* Joke Display */}
-       <div className="flex flex-col items-center border border-sky-100 border-dashed shadow-2xl p-4 mt-7 dark:bg-sky-900 dark:border-yellow-600">
+        <div className="flex flex-col items-center border border-sky-100 border-dashed shadow-2xl p-4 mt-7 dark:bg-sky-900 dark:border-yellow-600">
           <div className="text-center space-y-4 mt-10">
             <p className="text-3xl text-sky-700 font-sans hover:text-sky-400 dark:text-yellow-400 ">
               &quot;{currentJoke.text}&quot;
@@ -109,7 +104,7 @@ export default function Home() {
         </div>
 
         {/* Footer */}
-     <div className="text-center mt-3">
+        <div className="text-center mt-3">
           <span className="text-xs font-italic leading-tight text-gray-400 dark:text-zinc-400 dark:hover:text-zinc-300">
             App&lsquo;in geliştirilmesinde çok büyük katkıları olan <br></br>
             <Link
@@ -133,7 +128,7 @@ export default function Home() {
             </span>
           </div>
         </div>
-      </div> 
+      </div>
     </>
   );
 }
